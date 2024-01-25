@@ -406,6 +406,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@conform-to/dom@npm:0.9.1":
+  version: 0.9.1
+  resolution: "@conform-to/dom@npm:0.9.1"
+  checksum: 22cf5b43b5b9180c41de67b7ce97671bf6fff50b71bc0a2dddb458bd737c46d0c2fd7535ec14f8638d5369404020650470b94e34c2c2c8e2cde291ce400f8e9d
+  languageName: node
+  linkType: hard
+
+"@conform-to/react@npm:^0.9.1":
+  version: 0.9.1
+  resolution: "@conform-to/react@npm:0.9.1"
+  dependencies:
+    "@conform-to/dom": "npm:0.9.1"
+  peerDependencies:
+    react: ">=16.8"
+  checksum: c630a4ce5de2c71ba6eedced638ed0f88e4cd9b148a99df4449131ef4b1338da89a9c15e67b072124a5f626d3b022705ff8f342d003ef9978beeec903408643b
+  languageName: node
+  linkType: hard
+
+"@conform-to/zod@npm:^0.9.1":
+  version: 0.9.1
+  resolution: "@conform-to/zod@npm:0.9.1"
+  peerDependencies:
+    "@conform-to/dom": 0.9.1
+    zod: ^3.21.0
+  checksum: b4b1638c8cb460b4057dac5b9d0735574eceeda3b25258dae54637b4c5edf52d5871f5b46fd5b1e0aaab9a2d8fa0218efc09f8b6a87d031f3fff857884296f6d
+  languageName: node
+  linkType: hard
+
 "@emotion/hash@npm:^0.9.0":
   version: 0.9.1
   resolution: "@emotion/hash@npm:0.9.1"
@@ -6810,6 +6838,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
+    "@conform-to/react": "npm:^0.9.1"
+    "@conform-to/zod": "npm:^0.9.1"
     "@remix-run/css-bundle": "npm:^2.5.1"
     "@remix-run/dev": "npm:^2.5.1"
     "@remix-run/node": "npm:^2.5.1"
