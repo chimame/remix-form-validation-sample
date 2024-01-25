@@ -1,7 +1,4 @@
-import {
-  ValidatedForm,
-  useFormContext,
-} from "remix-validated-form";
+import { ValidatedForm, useFormContext } from "remix-validated-form";
 import { validator } from "./schemas/form";
 import { action } from "./handlers";
 import { useActionData } from "@remix-run/react";
@@ -9,10 +6,10 @@ import { useEffect } from "react";
 
 export default function Form() {
   const data = useActionData<typeof action>();
-  const { fieldErrors } = useFormContext('sample-form-id');
+  const { fieldErrors } = useFormContext("sample-form-id");
 
   useEffect(() => {
-    if (!data) return
+    if (!data) return;
 
     console.log(data);
     // {
@@ -24,22 +21,22 @@ export default function Form() {
     //   message:  <server message>
     // }
 
-    if ('message' in data) {
+    if ("message" in data) {
       alert(data.message);
     }
   }, [data]);
 
   return (
-    <ValidatedForm id='sample-form-id' validator={validator} method="post">
+    <ValidatedForm id="sample-form-id" validator={validator} method="post">
       <div>
         <label>Name</label>
         <input name="name" />
-        { fieldErrors.name && <div>{fieldErrors.name}</div> }
+        {fieldErrors.name && <div>{fieldErrors.name}</div>}
       </div>
       <div>
         <label>Email</label>
         <input name="email" />
-        { fieldErrors.email && <div>{fieldErrors.email}</div> }
+        {fieldErrors.email && <div>{fieldErrors.email}</div>}
       </div>
       <button type="submit">Regist</button>
     </ValidatedForm>
