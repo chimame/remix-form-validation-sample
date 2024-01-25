@@ -12,17 +12,20 @@ export default function Form() {
   const { fieldErrors } = useFormContext('sample-form-id');
 
   useEffect(() => {
-    if (data) {
-      console.log(data);
-      // {
-      //   fieleErrors: Record<<field name>, <error message>>,
-      //   formId: <your setting form id>
-      // }
-      // or
-      // {
-      //   title: `Hi <input name>!`,
-      //   description: `Your email is <input email>`,
-      // }
+    if (!data) return
+
+    console.log(data);
+    // {
+    //   fieleErrors: Record<<field name>, <error message>>,
+    //   formId: <your setting form id>
+    // }
+    // or
+    // {
+    //   message:  <server message>
+    // }
+
+    if ('message' in data) {
+      alert(data.message);
     }
   }, [data]);
 

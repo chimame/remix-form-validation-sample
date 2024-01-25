@@ -6,18 +6,28 @@ import { action } from './handlers';
 import { useEffect } from 'react';
 
 export default function SampleForm() {
-  const lastSubmission = useActionData<typeof action>();
+  const data = useActionData<typeof action>();
   const [form, { name, email }] = useForm({
-    lastSubmission,
+    lastSubmission: data?.submission,
     onValidate({ formData }) {
       return parse(formData, { schema });
     },
   });
 
   useEffect(() => {
-    if (!lastSubmission) return;
-    console.log(lastSubmission);
-  }, [lastSubmission]);
+    if (!data) return;
+
+    console.log(data);
+    // {
+    //   message: <server message>,
+    //   submission: lastSubmission for conform,
+    //   success: <boolean>,
+    // }
+
+    if (data.success) {
+      alert(data.message);
+    }
+  }, [data]);
 
   return (
     <Form method="post" {...form.props}>
