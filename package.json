@@ -10,8 +10,8 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@conform-to/react": "^0.9.1",
-    "@conform-to/zod": "^0.9.1",
+    "@conform-to/react": "^1.0.0",
+    "@conform-to/zod": "^1.0.0",
     "@remix-run/css-bundle": "^2.5.1",
     "@remix-run/node": "^2.5.1",
     "@remix-run/react": "^2.5.1",

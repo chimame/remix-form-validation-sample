@@ -1,5 +1,5 @@
-import { useForm } from "@conform-to/react";
-import { parse } from "@conform-to/zod";
+import { useForm, getFormProps, getInputProps } from "@conform-to/react";
+import { parseWithZod } from "@conform-to/zod";
 import { Form, useActionData } from "@remix-run/react";
 import { schema } from "./schemas/form";
 import { action } from "./handlers";
@@ -8,9 +8,9 @@ import { useEffect } from "react";
 export default function SampleForm() {
   const data = useActionData<typeof action>();
   const [form, { name, email }] = useForm({
-    lastSubmission: data?.submission,
+    lastResult: data?.submission,
     onValidate({ formData }) {
-      return parse(formData, { schema });
+      return parseWithZod(formData, { schema });
     },
   });
 
@@ -20,7 +20,7 @@ export default function SampleForm() {
     console.log(data);
     // {
     //   message: <server message>,
-    //   submission: lastSubmission for conform,
+    //   submission: typeof SubmissionResult,
     //   success: <boolean>,
     // }
 
@@ -30,16 +30,28 @@ export default function SampleForm() {
   }, [data]);
 
   return (
-    <Form method="post" {...form.props}>
+    <Form method="post" {...getFormProps(form)}>
       <div>
         <label>Name</label>
-        <input name={name.name} />
-        {name.error && <div>{name.error}</div>}
+        <input {...getInputProps(name, { type: "text" })} />
+        {name.errors && (
+          <div>
+            {name.errors.map((e, index) => (
+              <p key={index}>{e}</p>
+            ))}
+          </div>
+        )}
       </div>
       <div>
         <label>Email</label>
-        <input name={email.name} />
-        {email.error && <div>{email.error}</div>}
+        <input {...getInputProps(email, { type: "text" })} />
+        {email.errors && (
+          <div>
+            {email.errors.map((e, index) => (
+              <p key={index}>{e}</p>
+            ))}
+          </div>
+        )}
       </div>
       <button type="submit">Regist</button>
     </Form>

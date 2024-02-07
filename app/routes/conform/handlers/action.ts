@@ -1,5 +1,5 @@
 import type { ActionFunctionArgs } from "@remix-run/node";
-import { parse } from "@conform-to/zod";
+import { parseWithZod } from "@conform-to/zod";
 import { json } from "@remix-run/node";
 import { schema } from "../schemas/form";
 
@@ -10,24 +10,31 @@ const userExistsInDatabase = async (name: string) => {
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
-  const submission = parse(formData, { schema });
+  const submission = parseWithZod(formData, { schema });
 
-  if (!submission.value || submission.intent !== "submit") {
-    return json({ success: false, message: "error!", submission });
+  if (submission.status !== "success") {
+    return json({
+      success: false,
+      message: "error!",
+      submission: submission.reply(),
+    });
   }
 
   if (await userExistsInDatabase(submission.value.name)) {
     return json({
       success: false,
       message: "error!",
-      submission: {
-        ...submission,
-        error: {
+      submission: submission.reply({
+        fieldErrors: {
           name: ["This name cannot be used"],
         },
-      },
+      }),
     });
   }
 
-  return json({ success: true, message: "success!!", submission });
+  return json({
+    success: true,
+    message: "success!!",
+    submission: submission.reply(),
+  });
 }
